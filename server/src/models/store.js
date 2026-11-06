@@ -31,7 +31,7 @@ class AuthoritativeStore {
       id: defaultUserId,
       username: 'StarCommanderAlpha',
       email: 'pilot@odyssey.com',
-      passwordHash: '$2a$10$w8T9J5Hk2b/0E0.8hW5CquR5gKkXb6Q2s0u5N7H1a5c6m9a8r2r.G', // 'password123'
+      passwordHash: '$2a$10$9IAVT9Evuv4NEkbxs2e/1.FibGwZpYEzZrSlghBYaAGGcICbQdmpm', // 'password123'
       role: 'player',
       createdAt: new Date().toISOString()
     });
@@ -41,7 +41,7 @@ class AuthoritativeStore {
       id: adminId,
       username: 'FleetAdmiral',
       email: 'admin@odyssey.com',
-      passwordHash: '$2a$10$w8T9J5Hk2b/0E0.8hW5CquR5gKkXb6Q2s0u5N7H1a5c6m9a8r2r.G', // 'password123'
+      passwordHash: '$2a$10$9IAVT9Evuv4NEkbxs2e/1.FibGwZpYEzZrSlghBYaAGGcICbQdmpm', // 'password123'
       role: 'admin',
       createdAt: new Date().toISOString()
     });
