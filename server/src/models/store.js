@@ -20,17 +20,16 @@ class AuthoritativeStore {
     this.idempotencyKeys = new Set();
     this.gameEvents = [];
 
-    // Pre-seed default demo admin and player accounts for instant testing
+    // Seed initial system admin and fleet commander accounts
     this.seedDefaults();
   }
 
   seedDefaults() {
-    // Seed default admin and player accounts
     const defaultUserId = 'user-pilot-alpha';
     this.users.set(defaultUserId, {
       id: defaultUserId,
       username: 'StarCommanderAlpha',
-      email: 'pilot@odyssey.com',
+      email: 'commander@odyssey.space',
       passwordHash: '$2a$10$9IAVT9Evuv4NEkbxs2e/1.FibGwZpYEzZrSlghBYaAGGcICbQdmpm', // 'password123'
       role: 'player',
       createdAt: new Date().toISOString()
@@ -40,7 +39,7 @@ class AuthoritativeStore {
     this.users.set(adminId, {
       id: adminId,
       username: 'FleetAdmiral',
-      email: 'admin@odyssey.com',
+      email: 'admin@odyssey.space',
       passwordHash: '$2a$10$9IAVT9Evuv4NEkbxs2e/1.FibGwZpYEzZrSlghBYaAGGcICbQdmpm', // 'password123'
       role: 'admin',
       createdAt: new Date().toISOString()
@@ -53,7 +52,7 @@ class AuthoritativeStore {
       xp: 450,
       credits: 1200,
       energyCores: 4,
-      veloopRewardCoins: 50,
+      platformRewardCoins: 50,
       selectedShipId: 'interceptor',
       unlockedShips: ['interceptor', 'striker'],
       unlockedMissions: ['mission-01', 'mission-02', 'mission-03'],
@@ -94,7 +93,7 @@ class AuthoritativeStore {
       xp: ECONOMY_CONFIG.initialPlayerGrant.xp,
       credits: ECONOMY_CONFIG.initialPlayerGrant.credits,
       energyCores: ECONOMY_CONFIG.initialPlayerGrant.energyCores,
-      veloopRewardCoins: ECONOMY_CONFIG.initialPlayerGrant.veloopRewardCoins,
+      platformRewardCoins: ECONOMY_CONFIG.initialPlayerGrant.platformRewardCoins || 0,
       selectedShipId: ECONOMY_CONFIG.initialPlayerGrant.selectedShip,
       unlockedShips: [...ECONOMY_CONFIG.initialPlayerGrant.unlockedShips],
       unlockedMissions: [...ECONOMY_CONFIG.initialPlayerGrant.unlockedMissions],

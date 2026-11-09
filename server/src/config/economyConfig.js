@@ -43,7 +43,7 @@ export const ECONOMY_CONFIG = {
     energyCores: 2,
     xp: 0,
     level: 1,
-    veloopRewardCoins: 0,
+    platformRewardCoins: 0,
     unlockedShips: ['interceptor'],
     selectedShip: 'interceptor',
     unlockedMissions: ['mission-01']

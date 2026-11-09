@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { api } from '../services/api.js';
 import { sound } from '../audio/audioManager.js';
-import { User, Lock, Mail, Rocket, AlertCircle, Sparkles } from 'lucide-react';
+import { User, Lock, Mail, Rocket, AlertCircle, Sparkles, X } from 'lucide-react';
 
 export const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
   const [isRegister, setIsRegister] = useState(false);
@@ -37,22 +37,16 @@ export const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
     }
   };
 
-  const fillQuickDemo = (role) => {
-    sound.playClick();
-    if (role === 'admin') {
-      setEmail('admin@odyssey.com');
-      setPassword('password123');
-      setIsRegister(false);
-    } else {
-      setEmail('pilot@odyssey.com');
-      setPassword('password123');
-      setIsRegister(false);
-    }
-  };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
       <div className="w-full max-w-md bg-slate-900 border-2 border-cyan-500/40 rounded-2xl p-6 shadow-2xl shadow-cyan-950 relative">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
         <div className="text-center mb-6">
           <div className="w-14 h-14 rounded-2xl bg-cyan-950 border border-cyan-400 flex items-center justify-center mx-auto mb-3 text-cyan-400 shadow-neon-cyan">
             <Rocket className="w-7 h-7 transform -rotate-45" />
@@ -61,7 +55,7 @@ export const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
             {isRegister ? 'Enlist New Pilot' : 'Pilot Authorization'}
           </h3>
           <p className="text-xs text-slate-400 mt-1 font-rajdhani">
-            Access authoritative game state & VELoop economy ledger
+            Access authoritative flight records & token economy ledger
           </p>
         </div>
 
@@ -99,7 +93,7 @@ export const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="pilot@odyssey.com"
+                placeholder="pilot@odyssey.space"
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400 font-rajdhani"
               />
             </div>
@@ -130,30 +124,7 @@ export const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
           </button>
         </form>
 
-        {/* Demo Quick-Fill Buttons for easy evaluation */}
         <div className="mt-4 pt-4 border-t border-slate-800 text-center">
-          <span className="text-[10px] text-slate-500 uppercase tracking-widest font-mono">
-            Quick Evaluation Credentials
-          </span>
-          <div className="flex gap-2 mt-2">
-            <button
-              type="button"
-              onClick={() => fillQuickDemo('pilot')}
-              className="flex-1 py-1 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-rajdhani text-cyan-400 border border-slate-700"
-            >
-              Demo Pilot
-            </button>
-            <button
-              type="button"
-              onClick={() => fillQuickDemo('admin')}
-              className="flex-1 py-1 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-rajdhani text-amber-400 border border-slate-700"
-            >
-              Demo Admin
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-3 text-center">
           <button
             type="button"
             onClick={() => { setIsRegister(!isRegister); setError(null); }}

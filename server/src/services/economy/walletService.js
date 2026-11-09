@@ -12,7 +12,7 @@ export class WalletService {
     return {
       credits: profile.credits,
       energyCores: profile.energyCores,
-      veloopRewardCoins: profile.veloopRewardCoins,
+      platformRewardCoins: profile.platformRewardCoins || 0,
       xp: profile.xp,
       level: profile.level
     };

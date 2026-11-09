@@ -24,23 +24,21 @@ export function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Auto-login with default pilot token if none exists for frictionless evaluator testing
     initApp();
   }, []);
 
   const initApp = async () => {
     try {
-      if (!api.token) {
-        // Auto-authenticate as StarCommanderAlpha for instant gameplay demo
-        const loginRes = await api.login('pilot@odyssey.com', 'password123');
-        setUser(loginRes.user);
-      } else {
+      if (api.token) {
         const meRes = await api.getMe();
         setUser(meRes.user);
+        await refreshProfile();
       }
-      await refreshProfile();
     } catch (err) {
-      console.warn('Initial session auth:', err.message);
+      console.warn('Session verification:', err.message);
+      api.setToken(null);
+      setUser(null);
+      setProfile(null);
     } finally {
       setLoading(false);
     }
@@ -63,9 +61,19 @@ export function App() {
     setActiveTab('home');
   };
 
+  const requireAuth = (action) => {
+    if (!profile) {
+      setIsAuthOpen(true);
+      return;
+    }
+    action();
+  };
+
   const handleLaunchCombat = (mission) => {
-    setSelectedMission(mission);
-    setActiveTab('combat');
+    requireAuth(() => {
+      setSelectedMission(mission);
+      setActiveTab('combat');
+    });
   };
 
   const handleExitCombat = async () => {
@@ -75,23 +83,27 @@ export function App() {
   };
 
   const handleClaimSupplyDrop = async () => {
-    try {
-      const res = await api.claimSupplyDrop();
-      sound.playVictory();
-      alert(`Supply Drop Unpacked!\n+${res.drop.credits} Credits\n+${res.drop.cores} Energy Cores\n+1 ${res.drop.powerUp.replace('_', ' ').toUpperCase()}`);
-      await refreshProfile();
-    } catch (err) {
-      alert(err.message);
-    }
+    requireAuth(async () => {
+      try {
+        const res = await api.claimSupplyDrop();
+        sound.playVictory();
+        alert(`Supply Drop Unpacked!\n+${res.drop.credits} Credits\n+${res.drop.cores} Energy Cores\n+1 ${res.drop.powerUp.replace('_', ' ').toUpperCase()}`);
+        await refreshProfile();
+      } catch (err) {
+        alert(err.message);
+      }
+    });
   };
 
   const handleWatchAdForPowerUp = async () => {
-    try {
-      const oppRes = await api.createAdOpportunity('POWER_UP');
-      setActiveAdOpportunity(oppRes.opportunity);
-    } catch (err) {
-      alert(err.message);
-    }
+    requireAuth(async () => {
+      try {
+        const oppRes = await api.createAdOpportunity('POWER_UP');
+        setActiveAdOpportunity(oppRes.opportunity);
+      } catch (err) {
+        alert(err.message);
+      }
+    });
   };
 
   if (loading) {
@@ -120,10 +132,10 @@ export function App() {
         {activeTab === 'home' && (
           <HomeScreen
             profile={profile}
-            onStartCampaign={() => setActiveTab('campaign')}
-            onOpenHangar={() => setActiveTab('hangar')}
-            onOpenArmory={() => setActiveTab('armory')}
-            onOpenDashboard={() => setActiveTab('dashboard')}
+            onStartCampaign={() => requireAuth(() => setActiveTab('campaign'))}
+            onOpenHangar={() => requireAuth(() => setActiveTab('hangar'))}
+            onOpenArmory={() => requireAuth(() => setActiveTab('armory'))}
+            onOpenDashboard={() => requireAuth(() => setActiveTab('dashboard'))}
             onOpenLeaderboard={() => setActiveTab('leaderboard')}
             onClaimSupplyDrop={handleClaimSupplyDrop}
           />

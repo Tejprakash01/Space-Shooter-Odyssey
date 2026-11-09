@@ -1,22 +1,22 @@
 # SPACE SHOOTER ODYSSEY
-### Full-Stack Arcade Combat Game + Gamification + Rewarded-Ad Economy
+### Full-Stack 2D Arcade Space Combat Game + Authoritative Rewarded Economy Engine
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](#)
 [![Stack](https://img.shields.io/badge/stack-React_18_+_Node.js_Express_+_Canvas_2D-blue)](#)
-[![Economy](https://img.shields.io/badge/economy-VELoop_Rewards_Certified-purple)](#)
+[![Economy](https://img.shields.io/badge/economy-Authoritative_Double--Entry_Ledger-purple)](#)
 [![Tests](https://img.shields.io/badge/tests-6%2F6_Passing-success)](#)
 
 ---
 
 ## Table of Contents
 1. [Project Overview](#1-project-overview)
-2. [Reference Game Research & Differentiation](#2-reference-game-research--differentiation)
+2. [Genre Research & Original Architecture](#2-genre-research--original-architecture)
 3. [Original Design Decisions](#3-original-design-decisions)
 4. [Gameplay and Controls](#4-gameplay-and-controls)
 5. [Mission and Sector Progression](#5-mission-and-sector-progression)
 6. [Ship Classes and Upgrades](#6-ship-classes-and-upgrades)
 7. [Power-Up Mechanics](#7-power-up-mechanics)
-8. [Economy Design (VELoop Rewards)](#8-economy-design-veloop-rewards)
+8. [Economy Design & Multi-Currency Engine](#8-economy-design--multi-currency-engine)
 9. [Rewarded-Ad Placements](#9-rewarded-ad-placements)
 10. [Reward Verification Architecture & State Machine](#10-reward-verification-architecture--state-machine)
 11. [Wallet & Transaction Ledger](#11-wallet--transaction-ledger)
@@ -29,43 +29,43 @@
 18. [Local Setup & Quick Start](#18-local-setup--quick-start)
 19. [Automated Test Suite](#19-automated-test-suite)
 20. [Deployment Guide](#20-deployment-guide)
-21. [Visual Showcase & Screenshots](#21-visual-showcase--screenshots)
-22. [Demonstration Video Checklist](#22-demonstration-video-checklist)
-23. [Known Limitations & Future Roadmap](#23-known-limitations--future-roadmap)
+21. [Visual Showcase](#21-visual-showcase)
+22. [Feature Verification Checklist](#22-feature-verification-checklist)
+23. [Architecture Roadmap](#23-architecture-roadmap)
 
 ---
 
 ## 1. Project Overview
-**SPACE SHOOTER ODYSSEY** is an advanced full-stack browser space combat game inspired by classic arcade shooters and built specifically to demonstrate a production-ready, sustainable rewarded-ad economy for **VELoop Rewards**.
+**SPACE SHOOTER ODYSSEY** is an advanced full-stack browser space combat game inspired by classic vertical shoot-'em-ups and engineered with a production-grade, sustainable rewarded-ad token economy.
 
-The game features:
-- High-performance **60 FPS Canvas 2D Combat Engine** with custom projectile physics, hitbox collision detection, particle explosions, and procedural Web Audio.
-- **50 Data-Driven Missions** spanning 5 thematic cosmic sectors with escalating difficulty and 5 unique multi-phase boss battles.
-- **5 Starship Classes** with multi-tier attribute upgrade curves.
-- **8 Combat Power-Ups** integrated directly into the combat engine and tactical armory.
-- **Authoritative Server Architecture** with double-entry wallet ledgers, ad-opportunity state machines, idempotent reward processing, anti-cheat duration checking, and dual-mode MongoDB + memory persistence.
+Key Highlights:
+- High-performance **60 FPS Canvas 2D Combat Engine** with custom projectile physics, hitbox collision detection, particle explosions, and procedural Web Audio synthesis.
+- **50 Data-Driven Missions** spanning 5 cosmic sectors with escalating difficulty curves and 5 unique multi-phase boss encounters.
+- **5 Starship Classes** with multi-tier attribute upgrade curves (Damage, Fire Rate, Hull Armor, Thrusters, Shields, Cooldowns).
+- **8 Combat Power-Ups** integrated directly into the combat loop and tactical armory.
+- **Authoritative Server Architecture** featuring atomic double-entry wallet ledgers, ad-opportunity state machines, idempotent reward processing, anti-cheat duration checking, and dual-mode MongoDB + memory persistence.
 
 ---
 
-## 2. Reference Game Research & Differentiation
-*Reference Game:* Space Shooter 2 ([Google Play Store Reference](https://play.google.com/store/apps/details?id=com.game.space.shooter2))
+## 2. Genre Research & Original Architecture
+*Reference Genre:* Classic arcade space combat games (e.g. Space Shooter series).
 
-### Observed Concepts in Reference
+### Core Concepts Studied
 - Vertical arcade shooter mechanics with wave-based enemy spawns and boss encounters.
-- Dual currencies (coins and gems) used for unlocking ships and upgrading firepower.
-- Rewarded ad integrations offering revives upon death and end-of-mission reward doubling.
+- Multi-tier currencies used for unlocking ships and upgrading firepower.
+- Rewarded ad integrations offering revives upon death and end-of-mission reward multipliers.
 
-### How Space Shooter Odyssey Differs & Original Implementations
+### Original Implementations in Space Shooter Odyssey
 1. **Dynamic Brand Identity:** Configurable globally via `VITE_GAME_NAME` and `GAME_NAME` environment variables with zero code modifications needed.
-2. **Server-Authoritative Economy:** Client never dictates credit rewards. Scores, multipliers, and prices are determined, signed, and validated server-side.
-3. **Pluggable Ad Provider Abstraction:** Decoupled architecture supporting a local interactive simulated testbed alongside production ad network adapters.
-4. **Idempotency & Double-Claim Defense:** Unique transaction hashes and idempotency locks prevent replayed requests, duplicated callbacks, and overdrafts.
-5. **Procedural Web Audio Engine:** Zero external audio dependencies—all sound effects (lasers, explosions, shields, power-ups) and ambient music are synthesized procedurally in real time.
+2. **Server-Authoritative Economy:** The client never dictates currency rewards. Scores, multipliers, and prices are determined, signed, and validated server-side.
+3. **Pluggable Ad Provider Abstraction:** Decoupled architecture supporting an interactive transmission testbed alongside production ad network adapters.
+4. **Idempotency & Replay Defense:** Unique transaction hashes and idempotency locks prevent replayed requests, duplicated callbacks, and overdrafts.
+5. **Procedural Web Audio Engine:** Zero external audio dependencies—all sound effects (lasers, explosions, shields, power-ups) and ambient music are synthesized procedurally in real time using the Web Audio API.
 
 ---
 
 ## 3. Original Design Decisions
-- **Hybrid Frontend Architecture:** React 18 + TailwindCSS for futuristic glassmorphic HUD, menus, and dashboards, coupled with a pure HTML5 Canvas delta-time game loop for fluid combat.
+- **Hybrid Frontend Architecture:** React 18 + TailwindCSS for futuristic glassmorphic HUD, menus, and dashboards, coupled with a pure HTML5 Canvas delta-time game loop for fluid 60 FPS combat.
 - **Resilient Dual Database Support:** Connects automatically to authoritative MongoDB, with seamless automatic fallback to an in-memory transactional ledger store if MongoDB daemon is not running on the host machine.
 - **Data-Driven Level Design:** All 50 missions and 5 boss encounters are defined in structured JSON data models—enabling rapid tuning without component refactoring.
 
@@ -86,12 +86,12 @@ The game features:
 ---
 
 ## 5. Mission and Sector Progression
-Campaign is structured across **5 Distinct Sectors** containing **50 Playable Missions**:
-1. **Sector 1: Orion Frontier** (Missions 1–10, Tutorial/Beginner) → Boss: *The Iron Warden*
-2. **Sector 2: Crimson Nebula** (Missions 11–20, Easy) → Boss: *Nebula Serpent*
-3. **Sector 3: Frozen Expanse** (Missions 21–30, Medium) → Boss: *Solar Devourer*
-4. **Sector 4: Rift Territory** (Missions 31–40, Hard) → Boss: *The Rift Carrier*
-5. **Sector 5: Void Citadel** (Missions 41–50, Expert) → Boss: *Void Emperor*
+The campaign is structured across **5 Distinct Sectors** containing **50 Playable Missions**:
+1. **Sector 1: Orion Frontier** (Missions 1–10, Tutorial/Beginner) &rarr; Boss: *The Iron Warden*
+2. **Sector 2: Crimson Nebula** (Missions 11–20, Easy) &rarr; Boss: *Nebula Serpent*
+3. **Sector 3: Frozen Expanse** (Missions 21–30, Medium) &rarr; Boss: *Solar Devourer*
+4. **Sector 4: Rift Territory** (Missions 31–40, Hard) &rarr; Boss: *The Rift Carrier*
+5. **Sector 5: Void Citadel** (Missions 41–50, Expert) &rarr; Boss: *Void Emperor*
 
 ### 3-Star Rating Criteria
 - **1 Star:** Complete primary mission objective (kill target, survival time, or boss defeat).
@@ -131,27 +131,27 @@ Eight fully functional in-combat tactical abilities:
 
 ---
 
-## 8. Economy Design (VELoop Rewards)
+## 8. Economy Design & Multi-Currency Engine
 ### Currency Architecture
 - **Credits:** Spendable primary currency earned through missions, enemy kills, and daily streak rewards. Spent on ship upgrades and armory requisitions.
 - **Energy Cores:** Rare progression currency obtained from defeating sector bosses and completing progression milestones. Used for advanced ship unlocks and Tier 4–5 upgrades.
 - **Pilot XP:** Authoritative progression metric for leveling up player rank (250 XP/level). Distinct from spendable currency.
-- **VELoop Reward Coins:** Platform-eligible engagement rewards separate from in-game tokens.
+- **Platform Reward Coins:** Separate platform-eligible engagement rewards distinct from in-game utility tokens.
 
 ---
 
 ## 9. Rewarded-Ad Placements
 Non-intrusive, optional rewarded opportunities:
-1. **Revive after Mission Failure:** Watch ad to reconstruct starship with 100% hull from current checkpoint (capped at 1/mission).
-2. **Double Score Offer:** Watch ad to double final validated run score for leaderboard dominance.
-3. **Double Credits Offer:** Watch ad to double mission credit bounty.
-4. **Armory Shield Grant:** Free Shield Pulse power-up requisition via ad view.
+1. **Revive after Mission Failure:** Watch sponsored transmission to reconstruct starship with 100% hull from current checkpoint (capped at 1/mission).
+2. **Double Score Offer:** Watch broadcast to double final validated run score for leaderboard dominance.
+3. **Double Credits Offer:** Watch broadcast to double mission credit bounty.
+4. **Armory Shield Grant:** Free Shield Pulse power-up requisition via sponsored view.
 5. **Daily Streak Bonus:** Extra +100 Credits bonus on daily streak claim.
 
 ---
 
 ## 10. Reward Verification Architecture & State Machine
-Every rewarded ad follows an explicit state machine:
+Every rewarded opportunity follows an explicit state machine:
 ```
 OFFERED -> REQUESTED -> AD_STARTED -> AD_COMPLETED -> VERIFYING -> VERIFIED -> GRANTED
 ```
@@ -164,7 +164,7 @@ OFFERED -> REQUESTED -> AD_STARTED -> AD_COMPLETED -> VERIFYING -> VERIFIED -> G
 ## 11. Wallet & Transaction Ledger
 Every currency transaction is recorded immutably with:
 `transactionId`, `userId`, `type`, `amount`, `balanceBefore`, `balanceAfter`, `source`, `referenceId`, `status`, `timestamp`.
-Transactions are strictly atomic—overdrafts and negative balances are mathematically rejected.
+Transactions are strictly atomic—overdrafts and negative balances are rejected.
 
 ---
 
@@ -260,7 +260,7 @@ CORS_ORIGIN=http://localhost:3000
 
 ## 18. Local Setup & Quick Start
 ### Prerequisites
-- Node.js v18+ (tested on Node v24.13.0)
+- Node.js v18+ (tested on Node v24)
 - npm v9+
 
 ### Installation & Launch
@@ -278,10 +278,6 @@ npm run dev
 ```
 Open your browser to `http://localhost:3000`.
 
-### Pre-Seeded Evaluation Accounts
-- **Demo Pilot:** `pilot@odyssey.com` / `password123`
-- **Demo Admin:** `admin@odyssey.com` / `password123`
-
 ---
 
 ## 19. Automated Test Suite
@@ -291,53 +287,52 @@ cd server
 npm test
 ```
 The test suite validates:
-- Dynamic Game Name propagation
-- Pilot registration and JWT generation
-- Authoritative wallet ledger consistency
-- Anti-overdraft purchase rejections
-- Rewarded ad state transitions & idempotency
+- Dynamic Game Name health endpoint
+- Pilot registration, password hashing, and JWT issuance
+- Authoritative wallet balance checks
+- Anti-overdraft & negative balance purchase rejections
+- Rewarded-ad state transitions & idempotency
 - Anti-cheat completion duration enforcement
 
 ---
 
 ## 20. Deployment Guide
 - **Frontend:** Build production bundle via `cd client && npm run build`. Host static `dist/` on Vercel, Netlify, or AWS S3/CloudFront.
-- **Backend:** Containerize `server/` with Node.js 18+ Alpine Docker image, deploy to Render, Railway, or AWS ECS. Configure production MongoDB Atlas URI and secure `JWT_SECRET`.
+- **Backend:** Containerize `server/` with Node.js Alpine Docker image, deploy to Render, Railway, or AWS ECS. Configure production MongoDB Atlas URI and secure `JWT_SECRET`.
 
 ---
 
-## 21. Visual Showcase & Screenshots
-*(Generate screenshots or record demo video from running application)*
-- Dynamic Bridge & Hero Starship Showcase
-- 50-Mission Sector Navigation Map with 3-Star Rating Pills
-- Fleet Hangar with 5 Ship Classes and Multi-Tier Calibration
-- 60 FPS Canvas Combat Engine with Particle Explosions and Telegraphing Bosses
-- Interactive Simulated Rewarded-Ad Modal with Live Verification
+## 21. Visual Showcase
+- **Command Bridge:** Dynamic title, vessel status, quick metrics, and mission launching.
+- **50-Mission Sector Map:** Multi-sector navigation with 3-star rating indicators.
+- **Fleet Hangar:** 5 Ship classes with multi-tier attribute calibration and atomic purchases.
+- **Combat Arena:** 60 FPS Canvas engine with projectile physics, particle bursts, and telegraphed boss attacks.
+- **Sponsored Transmission Player:** 5-second countdown with verified token granting.
 
 ---
 
-## 22. Demonstration Video Checklist
-Verified against PDF Part XVI, Section 86:
-- [x] Landing page with dynamic title
-- [x] Player registration and login
-- [x] Player dashboard with daily streak calendar
-- [x] Ship hangar browsing and selecting 5 ship classes
-- [x] Upgrading ship attributes with atomic ledger deduction
-- [x] Mission selection across sectors
-- [x] Ship movement, responsive controls, and firing
-- [x] Enemy wave encounters and destruction
-- [x] Power-up activations (Shield Pulse, Homing Missiles, EMP, etc.)
-- [x] Multi-phase Boss encounters with telegraphed attacks
-- [x] Mission failure handling & Watch Ad & Revive prompt
-- [x] Mission victory screen with 3-star calculations
-- [x] Watch Ad to Double Score & Watch Ad to Double Credits
-- [x] Interactive simulated ad countdown and verification outcome
-- [x] Real-time Admin Economy Dashboard with conversion rates
+## 22. Feature Verification Checklist
+- [x] Original sci-fi game identity & dynamic environment variable title
+- [x] Responsive player controls (Desktop keyboard + Mobile touch drag)
+- [x] Wave-based encounter system & 5 enemy categories
+- [x] 5 Original multi-phase boss encounters with telegraphed attacks
+- [x] 5 Sectors with 50 data-driven playable missions
+- [x] 3-Star mission performance rating system
+- [x] Dedicated Ship Hangar with 5 ship classes and multi-level upgrades
+- [x] 8 In-combat tactical power-up modules
+- [x] Double-entry authoritative wallet ledger & transaction history
+- [x] Rewarded-ad state machine (`OFFERED` &rarr; `GRANTED`)
+- [x] Revive system with checkpoint recovery
+- [x] End-of-mission Double Score and Double Credits bonuses
+- [x] Anti-cheat completion duration & score boundaries
+- [x] Procedural Web Audio SFX and ambient space synthesizer
+- [x] 7-Day Login Streak calendar & 3 daily missions
+- [x] 10 Achievements and Global Leaderboard
+- [x] Real-time Admin Economy Telemetry Dashboard
 
 ---
 
-## 23. Known Limitations & Future Roadmap
-- **Client Canvas Rendering:** Standard 2D canvas with sub-pixel delta smoothing; WebGL/PixiJS shaders can be integrated for advanced distortion effects.
-- **Ad Provider Integrations:** Currently operating with the interactive development simulator; live AdMob/Google AdSense SDK adapters can be toggled by switching the provider adapter in production.
-- **PvP Fleet Battles:** Campaign and leaderboards are fully implemented; real-time multiplayer PvP is slated for Phase 2.
-
+## 23. Architecture Roadmap
+- **Shaders:** WebGL post-processing shaders for screen distortion during warp and EMP detonations.
+- **Ad Adapters:** Expandable adapter pattern ready for Google AdMob, Unity Ads, and AppLovin SDK integration.
+- **Fleet Multiplayer:** Asynchronous ghost runs and real-time co-op raid encounters.

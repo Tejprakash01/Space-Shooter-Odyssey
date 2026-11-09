@@ -88,14 +88,14 @@ export const AdminScreen = () => {
         <div>
           <div className="flex items-center gap-2">
             <h2 className="font-orbitron font-extrabold text-2xl text-white">
-              VELoop Rewards Economy Telemetry & Audit
+              Arcade Economy Telemetry & Audit
             </h2>
             <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-400 border border-amber-500/30">
               RESTRICTED
             </span>
           </div>
           <p className="text-xs text-slate-400 font-rajdhani mt-1">
-            Authoritative platform metrics derived from immutable transactional ledgers (PDF Part XIII, Sections 74-77)
+            Authoritative platform metrics derived from immutable transactional ledgers
           </p>
         </div>
 

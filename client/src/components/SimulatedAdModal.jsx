@@ -63,8 +63,8 @@ export const SimulatedAdModal = ({ opportunity, onClose, onRewardGranted }) => {
         {/* Header Ribbon */}
         <div className="bg-gradient-to-r from-cyan-950 via-slate-900 to-purple-950 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-              SIMULATED AD TESTBED
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+              SPONSORED TRANSMISSION
             </span>
             <span className="text-xs font-orbitron text-slate-300">
               Placement: <span className="text-cyan-400">{opportunity.placementType}</span>
@@ -95,10 +95,10 @@ export const SimulatedAdModal = ({ opportunity, onClose, onRewardGranted }) => {
 
               <div>
                 <h4 className="font-orbitron font-bold text-slate-100 text-lg">
-                  VELoop Rewards Partner Showcase
+                  Galactic Sponsor Showcase
                 </h4>
                 <p className="text-xs text-slate-400 max-w-xs mt-1">
-                  Enjoying Space Shooter Odyssey? Watch this short presentation to claim your guaranteed reward grant.
+                  Enjoying Space Shooter Odyssey? Complete this sponsored broadcast to claim your guaranteed reward grant.
                 </p>
               </div>
 

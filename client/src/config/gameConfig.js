@@ -1,4 +1,4 @@
-// Centralized Frontend Configuration Module (PDF Part I, Section 4)
+// Centralized Frontend Configuration Module
 export const GAME_NAME = import.meta.env.VITE_GAME_NAME || "SPACE SHOOTER ODYSSEY";
 export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
@@ -8,6 +8,6 @@ if (typeof document !== 'undefined') {
 }
 
 export const GAME_VERSION = "1.0.0";
-export const AUTHOR = "Full-Stack Development Team";
-export const REWARD_PLATFORM = "VELoop Rewards";
+export const AUTHOR = "Development Team";
+export const REWARD_PLATFORM = "Stellar Rewards";
 

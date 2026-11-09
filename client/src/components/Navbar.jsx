@@ -41,7 +41,7 @@ export const Navbar = ({ activeTab, setActiveTab, profile, onLogout, onOpenAuth 
               {GAME_NAME}
             </h1>
             <div className="text-[10px] text-cyan-400/70 font-mono tracking-widest uppercase">
-              VELoop Rewards • Authoritative Arcade
+              Authoritative Arcade • Rewarded Economy Engine
             </div>
           </div>
         </div>
@@ -87,7 +87,14 @@ export const Navbar = ({ activeTab, setActiveTab, profile, onLogout, onOpenAuth 
             return (
               <button
                 key={item.id}
-                onClick={() => { setActiveTab(item.id); sound.playClick(); }}
+                onClick={() => {
+                  if (!profile && item.id !== 'home' && item.id !== 'leaderboard') {
+                    onOpenAuth();
+                    return;
+                  }
+                  setActiveTab(item.id);
+                  sound.playClick();
+                }}
                 className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-orbitron transition-all ${
                   isActive
                     ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 shadow-neon-cyan'

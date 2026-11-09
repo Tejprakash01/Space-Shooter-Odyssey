@@ -104,20 +104,20 @@ export const getLeaderboard = (req, res) => {
 };
 
 export const getEvents = (req, res) => {
-  const demoEvent = {
+  const activeEvent = {
     eventId: 'evt-orion-purge',
     name: 'Sector Surge: Orion Elite Purge',
-    description: 'Eliminate elite enemies across Sector 1 and 2 to earn bonus Energy Cores and VELoop Reward Coins!',
+    description: 'Eliminate elite enemies across Sector 1 and 2 to earn bonus Energy Cores and Platform Reward Coins!',
     startTime: new Date(Date.now() - 86400000).toISOString(),
     endTime: new Date(Date.now() + 86400000 * 5).toISOString(),
     targetObjective: 'Destroy 10 Elite Enemies',
     targetCount: 10,
     currentProgress: 4,
-    reward: { credits: 500, energyCores: 2, veloopCoins: 25 },
+    reward: { credits: 500, energyCores: 2, platformRewardCoins: 25 },
     isActive: true
   };
 
-  return res.json({ success: true, events: [demoEvent] });
+  return res.json({ success: true, events: [activeEvent] });
 };
 
 export const getDailyStreak = (req, res) => {
