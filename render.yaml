@@ -92,7 +92,6 @@ services:
   - type: web
     name: space-shooter-client
     runtime: static
-    plan: free
     rootDir: client
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -108,3 +107,4 @@ services:
           type: web
           name: space-shooter-api
           envVarKey: RENDER_EXTERNAL_URL
+
