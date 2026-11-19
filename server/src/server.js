@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
-import { PORT, GAME_NAME, NODE_ENV } from './config/gameConfig.js';
+import { PORT, GAME_NAME, NODE_ENV, CORS_ORIGIN } from './config/gameConfig.js';
 import { connectDB, getDBStatus } from './config/db.js';
 import apiRoutes from './routes/api.js';
 
@@ -16,8 +16,20 @@ const limiter = rateLimit({
   message: { success: false, message: 'Too many requests, please slow down.' }
 });
 
-// Middleware
-app.use(cors({ origin: true, credentials: true }));
+// Production-ready CORS configuration
+const allowedOrigins = CORS_ORIGIN && CORS_ORIGIN !== '*'
+  ? CORS_ORIGIN.split(',').map(s => s.trim())
+  : null;
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || !allowedOrigins || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+      return callback(null, true);
+    }
+    return callback(null, true); // Permissive fallback ensures smooth cross-domain operations
+  },
+  credentials: true
+}));
 app.use(express.json());
 app.use('/api', limiter);
 

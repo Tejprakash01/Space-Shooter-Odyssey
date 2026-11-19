@@ -40,14 +40,19 @@ A browser-based space combat arcade game built with a 60 FPS HTML5 Canvas engine
 ### 4. Audio Engine
 - **Procedural Web Audio:** Zero external audio dependencies—all sound effects (lasers, explosions, shields, chimes) and ambient background music are synthesized in real time.
 
+### 5. Deployment & Ads Management Architecture
+- **Render Blueprint (`render.yaml`):** Production Infrastructure-as-Code blueprint orchestrating the Node.js API Web Service and the React/Vite Static Site with zero-configuration build hooks and automatic routing.
+- **Pluggable Ad Network Adapters:** Standardized `adProviderAdapter.js` supporting `simulated_provider`, Google AdMob S2S, Unity Ads, and custom webhook verification.
+- **Comprehensive Ads Environment Control:** Dynamic runtime configuration for killswitches, placement toggles (revive, double score, double credits, extra shield), daily/hourly caps, and cooldown intervals.
+
 ---
 
 ## 📋 What to Do Next
 
 ### 1. Cloud Deployment
-- [ ] **Database:** Set up a free MongoDB Atlas M0 cluster and configure network access rules.
-- [ ] **Backend Service:** Deploy `server/` to Render or Railway with production environment variables (`MONGODB_URI`, `JWT_SECRET`, `CORS_ORIGIN`).
-- [ ] **Frontend Hosting:** Deploy `client/` to Vercel or Netlify pointing `VITE_API_URL` to the live backend URL.
+- [x] **Render Blueprint (`render.yaml`):** Infrastructure-as-Code blueprint created for one-click deployment.
+- [ ] **Database Connection:** Provision a free MongoDB Atlas M0 cluster and populate `MONGODB_URI` in the Render dashboard (in-memory persistence operates seamlessly if omitted).
+- [ ] **Custom Domain & SSL:** Link custom production domain names in Render settings.
 
 ### 2. Testing & Quality Assurance
 - [ ] **Mobile & Cross-Browser Verification:** Test touch drag controls and layout responsiveness across Safari, Chrome, iOS, and Android devices.
@@ -55,9 +60,47 @@ A browser-based space combat arcade game built with a 60 FPS HTML5 Canvas engine
 - [ ] **Anti-Cheat Boundary Tests:** Expand automated test coverage for speed-hack and score injection scenarios.
 
 ### 3. Production Integrations & Polish
-- [ ] **Live Ad Network Integration:** Connect real ad network SDKs (Google AdMob, Google AdSense, or Unity Ads) using the existing `adProviderAdapter.js` interface.
+- [ ] **Live Ad Network Credentials:** Configure production AdMob or Unity Ads keys in Render environment variables.
 - [ ] **PWA Support:** Add a web app manifest and service worker for mobile home-screen installability and static asset caching.
 - [ ] **Visual & Animation Polish:** Add hit-spark visual feedback, screen shake options, and custom particle styles for elite ships.
+
+---
+
+## 🌐 Deployment via Render Blueprint
+
+The repository includes a ready-to-use Render Blueprint (`render.yaml`) defining both services:
+
+| Service | Type | Directory | Build Command | Start / Publish |
+| :--- | :--- | :--- | :--- | :--- |
+| **`space-shooter-api`** | Web Service (Node.js) | `server` | `npm install` | `npm start` |
+| **`space-shooter-client`** | Static Site (React/Vite) | `client` | `npm install && npm run build` | `dist` |
+
+### One-Click Deploy Steps
+1. Push your repository to GitHub.
+2. Log in to [Render](https://render.com) and click **New +** &rarr; **Blueprint**.
+3. Select your repository. Render will automatically parse `render.yaml` and provision both services.
+4. (Optional) In the Render dashboard for `space-shooter-api`, set your `MONGODB_URI` connection string if connecting to MongoDB Atlas.
+
+### Ads Management Environment Variables
+
+Configure these variables in your Render Dashboard or `.env` to manage ad behavior:
+
+| Variable | Default | Description |
+| :--- | :--- | :--- |
+| `AD_PROVIDER` | `simulated_provider` | Active ad network adapter: `simulated_provider`, `admob`, `unity`, or `custom` |
+| `ADS_ENABLED` | `true` | Master toggle to enable or disable all rewarded ads |
+| `AD_REVIVE_ENABLED` | `true` | Enable rewarded ad offering upon ship destruction |
+| `AD_DOUBLE_SCORE_ENABLED` | `true` | Enable 2x score multiplier ad on mission victory |
+| `AD_DOUBLE_CREDITS_ENABLED` | `true` | Enable 2x credits multiplier ad on mission victory |
+| `AD_EXTRA_SHIELD_ENABLED` | `true` | Enable pre-mission +50 shield booster ad |
+| `MAX_REWARDED_ADS_PER_DAY` | `10` | Daily cap on rewarded ads per pilot |
+| `MAX_REWARDED_ADS_PER_SESSION` | `5` | Maximum rewarded ads allowed in a single game session |
+| `MAX_REWARDED_PER_HOUR` | `8` | Hourly rate limit |
+| `MIN_SECONDS_BETWEEN_REWARDED_ADS` | `30` | Minimum cooldown between consecutive ads |
+| `MAX_REVIVES_PER_MISSION` | `1` | Maximum revives permitted per mission |
+| `ADMOB_APP_ID` / `ADMOB_SECRET_KEY` | _Optional_ | Google AdMob Server-to-Server verification keys |
+| `UNITY_GAME_ID` / `UNITY_API_KEY` | _Optional_ | Unity Ads server authentication keys |
+| `CUSTOM_AD_WEBHOOK_URL` | _Optional_ | Webhook URL for external custom ad verification services |
 
 ---
 

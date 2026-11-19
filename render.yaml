@@ -1,0 +1,110 @@
+services:
+  # =============================================================================
+  # BACKEND API WEB SERVICE (Node.js / Express)
+  # =============================================================================
+  - type: web
+    name: space-shooter-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: GAME_NAME
+        value: SPACE SHOOTER ODYSSEY
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CORS_ORIGIN
+        value: "*"
+
+      # Optional persistent MongoDB Atlas cluster URI.
+      # If omitted or unconnectable, server automatically falls back to transactional in-memory store.
+      - key: MONGODB_URI
+        sync: false
+
+      # -------------------------------------------------------------------------
+      # ADS MANAGEMENT CONFIGURATION
+      # -------------------------------------------------------------------------
+      # Active Provider: simulated_provider | admob | unity | custom
+      - key: AD_PROVIDER
+        value: simulated_provider
+      # Master ad killswitch
+      - key: ADS_ENABLED
+        value: "true"
+
+      # Rewarded Ad Placements
+      - key: AD_REVIVE_ENABLED
+        value: "true"
+      - key: AD_DOUBLE_SCORE_ENABLED
+        value: "true"
+      - key: AD_DOUBLE_CREDITS_ENABLED
+        value: "true"
+      - key: AD_EXTRA_SHIELD_ENABLED
+        value: "true"
+
+      # Rate Limits, Cooldowns & Economy Caps
+      - key: MAX_REWARDED_ADS_PER_DAY
+        value: "10"
+      - key: MAX_REWARDED_ADS_PER_SESSION
+        value: "5"
+      - key: MAX_REWARDED_PER_HOUR
+        value: "8"
+      - key: MIN_SECONDS_BETWEEN_REWARDED_ADS
+        value: "30"
+      - key: AD_OPPORTUNITY_EXPIRY_SECONDS
+        value: "120"
+      - key: MAX_REVIVES_PER_MISSION
+        value: "1"
+
+      # Third-Party Ad Network Credentials (optional / sync: false)
+      # Google AdMob S2S
+      - key: ADMOB_APP_ID
+        sync: false
+      - key: ADMOB_REWARDED_AD_UNIT_ID
+        sync: false
+      - key: ADMOB_SECRET_KEY
+        sync: false
+
+      # Unity Ads
+      - key: UNITY_GAME_ID
+        sync: false
+      - key: UNITY_PLACEMENT_ID
+        sync: false
+      - key: UNITY_API_KEY
+        sync: false
+
+      # Custom Ad Webhook / S2S Server
+      - key: CUSTOM_AD_WEBHOOK_URL
+        sync: false
+      - key: CUSTOM_AD_SECRET
+        sync: false
+
+  # =============================================================================
+  # FRONTEND STATIC WEB APP (React 18 + Vite SPA)
+  # =============================================================================
+  - type: web
+    name: space-shooter-client
+    runtime: static
+    plan: free
+    rootDir: client
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_GAME_NAME
+        value: SPACE SHOOTER ODYSSEY
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: space-shooter-api
+          envVarKey: RENDER_EXTERNAL_URL

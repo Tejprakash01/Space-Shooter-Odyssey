@@ -1,46 +1,51 @@
-// Centralized Authoritative Server Economy Configuration (PDF Part VI, Sections 30-35)
+// Centralized Authoritative Server Economy & Ads Configuration
+// Values can be configured via environment variables or modified live via admin API
+import dotenv from 'dotenv';
+dotenv.config();
+
 export const ECONOMY_CONFIG = {
   // Gameplay Base Rewards
-  missionCompletionCredits: 100,
-  normalEnemyCredits: 2,
-  eliteEnemyCredits: 10,
-  bossCompletionCredits: 250,
-  threeStarBonusCredits: 50,
-  dailyMissionCredits: 150,
+  missionCompletionCredits: Number(process.env.MISSION_COMPLETION_CREDITS) || 100,
+  normalEnemyCredits: Number(process.env.NORMAL_ENEMY_CREDITS) || 2,
+  eliteEnemyCredits: Number(process.env.ELITE_ENEMY_CREDITS) || 10,
+  bossCompletionCredits: Number(process.env.BOSS_COMPLETION_CREDITS) || 250,
+  threeStarBonusCredits: Number(process.env.THREE_STAR_BONUS_CREDITS) || 50,
+  dailyMissionCredits: Number(process.env.DAILY_MISSION_CREDITS) || 150,
   
   // Progression & Energy Cores
-  bossCompletionCores: 1,
-  sectorCompletionCores: 3,
+  bossCompletionCores: Number(process.env.BOSS_COMPLETION_CORES) || 1,
+  sectorCompletionCores: Number(process.env.SECTOR_COMPLETION_CORES) || 3,
 
   // Multipliers
-  doubleScoreMultiplier: 2.0,
-  doubleCreditsMultiplier: 2.0,
+  doubleScoreMultiplier: Number(process.env.DOUBLE_SCORE_MULTIPLIER) || 2.0,
+  doubleCreditsMultiplier: Number(process.env.DOUBLE_CREDITS_MULTIPLIER) || 2.0,
 
-  // Rewarded Ads Controls
+  // Rewarded Ads Management & Frequency Controls
   rewardedAds: {
-    enabled: true,
-    reviveEnabled: true,
-    doubleScoreEnabled: true,
-    doubleCreditsEnabled: true,
-    extraShieldEnabled: true,
+    enabled: process.env.ADS_ENABLED !== 'false',
+    provider: process.env.AD_PROVIDER || 'simulated_provider',
+    reviveEnabled: process.env.AD_REVIVE_ENABLED !== 'false',
+    doubleScoreEnabled: process.env.AD_DOUBLE_SCORE_ENABLED !== 'false',
+    doubleCreditsEnabled: process.env.AD_DOUBLE_CREDITS_ENABLED !== 'false',
+    extraShieldEnabled: process.env.AD_EXTRA_SHIELD_ENABLED !== 'false',
     
     // Per mission / session caps
-    maxRevivesPerMission: 1,
-    maxDoubleScorePerMission: 1,
-    maxDoubleCreditsPerMission: 1,
+    maxRevivesPerMission: Number(process.env.MAX_REVIVES_PER_MISSION) || 1,
+    maxDoubleScorePerMission: Number(process.env.MAX_DOUBLE_SCORE_PER_MISSION) || 1,
+    maxDoubleCreditsPerMission: Number(process.env.MAX_DOUBLE_CREDITS_PER_MISSION) || 1,
     
     // Global frequency & rate caps
-    maxRewardedAdsPerSession: 5,
-    maxRewardedPerHour: 8,
-    maxRewardedAdsPerDay: 10,
-    minSecondsBetweenRewardedAds: 30, // Cooldown between ad triggers
-    opportunityExpirySeconds: 120    // Ad opportunity must be claimed within 2 minutes
+    maxRewardedAdsPerSession: Number(process.env.MAX_REWARDED_ADS_PER_SESSION) || 5,
+    maxRewardedPerHour: Number(process.env.MAX_REWARDED_PER_HOUR) || 8,
+    maxRewardedAdsPerDay: Number(process.env.MAX_REWARDED_ADS_PER_DAY) || 10,
+    minSecondsBetweenRewardedAds: Number(process.env.MIN_SECONDS_BETWEEN_REWARDED_ADS) || 30, // Cooldown in seconds
+    opportunityExpirySeconds: Number(process.env.AD_OPPORTUNITY_EXPIRY_SECONDS) || 120    // Claim validity window in seconds
   },
 
   // Initial Player Grants
   initialPlayerGrant: {
-    credits: 500,
-    energyCores: 2,
+    credits: Number(process.env.INITIAL_PLAYER_CREDITS) || 500,
+    energyCores: Number(process.env.INITIAL_PLAYER_CORES) || 2,
     xp: 0,
     level: 1,
     platformRewardCoins: 0,
